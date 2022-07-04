@@ -23,3 +23,6 @@ steps:
     echo See https://aka.ms/yaml
     echo Kyouko~ ${{ variables.name }}
   displayName: 'Run a multi-line script'
+
+- script: npm -v
+  displayName: 'Run npm'
