@@ -31,6 +31,7 @@ stages:
     jobs:
       - job: Job_Validation
         displayName: 'Run Job_Validation'
+        pool: server
         steps:
           - task: ManualValidation@0
             timeoutInMinutes: 2
