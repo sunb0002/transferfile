@@ -6,6 +6,9 @@
 trigger:
 - master
 
+strategy:
+  maxParallel: 3
+
 pool:
   name: 'Self Hosted'
 
