@@ -16,13 +16,13 @@ variables:
 stages: 
   - stage: Stage1
     jobs:
-      - job: Job_1-1
-        displayName: 'Run Job_1-1'
+      - job: Job_1_1
+        displayName: 'Run Job_1_1'
         steps:
           - script: echo Hello Madoka!
             displayName: 'Maodka step'
-      - job: Job_1-2
-        displayName: 'Run Job_1-2'
+      - job: Job_1_2
+        displayName: 'Run Job_1_2'
         steps:
           - script: echo Hello Sayaka!
             displayName: 'Sayaka step'
@@ -42,8 +42,8 @@ stages:
 
   - stage: Stage2
     jobs:
-      - job: Job_2-1
-        displayName: 'Run Job_2-1'
+      - job: Job_2_1
+        displayName: 'Run Job_2_1'
         steps:
           - script: echo Hello Mami!
             displayName: 'Mami step' 
