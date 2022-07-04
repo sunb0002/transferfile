@@ -6,9 +6,6 @@
 trigger:
 - master
 
-strategy:
-  maxParallel: 3
-
 pool:
   name: 'Self Hosted'
 
@@ -16,16 +13,38 @@ variables:
 - name: name
   value: Kyouko
 
-steps:
-- script: echo Hello, world!
-  displayName: 'Print hello world'
+stages: 
+  - stage: Stage1
+    jobs:
+      - job: Job_1-1
+        displayName: 'Run Job_1-1'
+        steps:
+          - script: echo Hello Madoka!
+            displayName: 'Maodka step'
+      - job: Job_1-2
+        displayName: 'Run Job_1-2'
+        steps:
+          - script: echo Hello Sayaka!
+            displayName: 'Sayaka step'
+            
+  - stage: ValidationStage
+    jobs:
+      - job: Job_Validation
+        displayName: 'Run Job_Validation'
+        steps:
+          - task: ManualValidation@0
+            timeoutInMinutes: 2
+            inputs:
+              notifyUsers: ''
+              instructions: 'Yo pls validate'
+              onTimeout: 'resume'
+        
 
-- bash: |
-    ls
-    echo Madoka~ $(name)
-    echo See https://aka.ms/yaml
-    echo Kyouko~ ${{ variables.name }}
-  displayName: 'Run a multi-line script'
-
-- script: npm -v
-  displayName: 'Run npm'
+  - stage: Stage2
+    jobs:
+      - job: Job_2-1
+        displayName: 'Run Job_2-1'
+        steps:
+          - script: echo Hello Mami!
+            displayName: 'Mami step' 
+  
