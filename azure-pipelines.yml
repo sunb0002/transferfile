@@ -29,19 +29,19 @@ stages:
           - script: echo Hello Sayaka!
             displayName: 'Sayaka step'
             
-  - stage: ValidationStage
-    dependsOn: [Stage1, Stage2]
-    jobs:
-      - job: Job_Validation
-        displayName: 'Run Job_Validation'
-        pool: server
-        steps:
-          - task: ManualValidation@0
-            timeoutInMinutes: 2
-            inputs:
-              notifyUsers: ''
-              instructions: 'Yo pls validate'
-              onTimeout: 'resume'
+  # - stage: ValidationStage
+  #   dependsOn: [Stage1, Stage2]
+  #   jobs:
+  #     - job: Job_Validation
+  #       displayName: 'Run Job_Validation'
+  #       pool: server
+  #       steps:
+  #         - task: ManualValidation@0
+  #           timeoutInMinutes: 2
+  #           inputs:
+  #             notifyUsers: ''
+  #             instructions: 'Yo pls validate'
+  #             onTimeout: 'resume'
         
 
   - stage: Stage2
