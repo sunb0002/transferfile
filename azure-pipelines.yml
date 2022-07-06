@@ -13,6 +13,7 @@ pool:
 variables:
 - name: name
   value: Kyouko
+  readonly: true
 
 stages: 
   - stage: Stage1
