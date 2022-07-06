@@ -43,6 +43,7 @@ stages:
         
 
   - stage: Stage2
+    dependsOn: []
     jobs:
       - job: Job_2_1
         displayName: 'Run Job_2_1'
