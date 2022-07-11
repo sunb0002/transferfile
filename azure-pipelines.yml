@@ -3,7 +3,6 @@
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
 
-# trigger: none # Disable CI triggers
 trigger:
   batch: true # Squash all commits made while build is in progress
   branches:
