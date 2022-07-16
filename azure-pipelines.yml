@@ -1,16 +1,12 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
 
-trigger:
+trigger: # This is a CI trigger. Also got Schdeduled trigger (cron) and Pipeline dependency trigger (resources)
   batch: true # Squash all commits made while build is in progress
   branches:
     include:
       - master
 
 pool:
-  # name: 'Self Hosted'
+  # name: 'Self Hosted' # need to install agent on my own laptop/server
   vmImage: 'ubuntu-latest'
 
 variables:
@@ -18,12 +14,12 @@ variables:
   value: Kyouko
   readonly: true
 
-stages: 
-  - stage: Stage1
-    jobs:
-      - job: Job_1_1
+stages: # A stage is like k8s Service, just a logic boundary. Its jobs runs one after another by default.
+  - stage: Stage1 
+    jobs: # A job is like k8s Pod. Everything runs in the same place.
+      - job: Job_1_1 
         displayName: 'Run Job_1_1'
-        steps:
+        steps: # A step is like k8s Container, that runs in a same Pod.
           - script: echo Hello Madoka!
             displayName: 'Maodka step'
       - job: Job_1_2
@@ -32,23 +28,8 @@ stages:
           - script: echo Hello Sayaka!
             displayName: 'Sayaka step'
             
-  # - stage: ValidationStage
-  #   dependsOn: [Stage1, Stage2]
-  #   jobs:
-  #     - job: Job_Validation
-  #       displayName: 'Run Job_Validation'
-  #       pool: server
-  #       steps:
-  #         - task: ManualValidation@0
-  #           timeoutInMinutes: 2
-  #           inputs:
-  #             notifyUsers: ''
-  #             instructions: 'Yo pls validate'
-  #             onTimeout: 'resume'
-        
-
   - stage: Stage2
-    dependsOn: []
+    dependsOn: [] # Run in parallel, if there are more agents available
     jobs:
       - job: Job_2_1
         displayName: 'Run Job_2_1'
@@ -56,3 +37,18 @@ stages:
           - script: echo Hello Mami!
             displayName: 'Mami step' 
   
+  - stage: ValidationStage
+    dependsOn: [Stage1, Stage2]
+    jobs:
+      - job: Job_Validation
+        displayName: 'Run Job_Validation'
+        steps:
+          - task: ManualValidation@0
+            condition: succeededOrFailed() # Other options: always(runs even when canceled), canceled, failed, succeeded(default)
+            enabled: false # Disabled for now
+            timeoutInMinutes: 1
+            inputs: # Inputs may not be available for other tasks.
+              notifyUsers: ''
+              instructions: 'Yo pls validate'
+              onTimeout: 'reject'
+        
