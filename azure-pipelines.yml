@@ -16,7 +16,7 @@ variables:
 
 stages: # A stage is like k8s Service, just a logic boundary. Its jobs runs one after another by default.
   - stage: Stage1 
-    jobs: # A job is like k8s Pod. All jobs run in the same place.
+    jobs: # A job is like k8s Pod. All jobs run in the same place. # Deployment job is special, need to create environemnts in ADO panel first.
       - job: Job_1_1 
         displayName: 'Run Job_1_1'
         steps: # A step is like k8s Container. All steps run in a same Pod.
@@ -35,7 +35,12 @@ stages: # A stage is like k8s Service, just a logic boundary. Its jobs runs one 
         displayName: 'Run Job_2_1'
         steps:
           - script: echo Hello Mami!
-            displayName: 'Mami step' 
+            displayName: 'Mami step'
+          - task: NodeTool@0
+            inputs:
+              versionSpec: '18.x'
+          - script: which node
+            displayName: 'Write the installed nodejs version to the command line'
   
   - stage: ValidationStage
     dependsOn: [Stage1, Stage2]
@@ -44,7 +49,9 @@ stages: # A stage is like k8s Service, just a logic boundary. Its jobs runs one 
         displayName: 'Run Job_Validation'
         steps:
           - task: ManualValidation@0
-            condition: succeededOrFailed() # Other options: always(runs even when canceled), canceled, failed, succeeded(default)
+            # target: pycontainer # Can specify 
+            # condition: succeededOrFailed() # Other options: always(runs even when canceled), canceled, failed, succeeded(default)
+            # retryCountOnTaskFailure: 10
             enabled: false # Disabled for now
             timeoutInMinutes: 1
             inputs: # Inputs may not be available for other tasks.
