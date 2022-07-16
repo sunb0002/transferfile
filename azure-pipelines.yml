@@ -24,25 +24,27 @@ stages: # A stage is like k8s Service, just a logic boundary. Its jobs runs one 
         displayName: 'Maodka step'
     - job: Job_template
       displayName: 'Run Job_template'
-    - template: templates/play-template.yml
-      parameters:
-        firstName: 'Bad Kyubey'
+      steps:
+        - template: templates/play-template.yml
+          parameters:
+            firstName: 'Bad Kyubey'
 
             
   - stage: Stage2
     dependsOn: [] # Run in parallel, if there are more agents available
     jobs:
-      - job: Job_task
-        displayName: 'Run Job_task'
-        steps:
-          - script: echo Hello Mami!
-            displayName: 'Mami step'
-          - task: NodeTool@0
-            inputs:
-              versionSpec: '18.x'
-          - script: which node
-            displayName: 'Check installed nodejs version'
+    - job: Job_task
+      displayName: 'Run Job_task'
+      steps:
+      - script: echo Hello Mami!
+        displayName: 'Mami step'
+      - task: NodeTool@0
+        inputs:
+          versionSpec: '18.x'
+      - script: which node
+        displayName: 'Check installed nodejs version'
   
+
   - stage: ValidationStage
     dependsOn: [Stage1, Stage2]
     jobs:
