@@ -10,23 +10,23 @@ pool:
   vmImage: 'ubuntu-latest'
 
 variables:
-  - name: name
-    value: Kyouko
-    readonly: true
+- name: name
+  value: Kyouko
+  readonly: true
 
 stages: # A stage is like k8s Service, just a logic boundary. Its jobs runs one after another by default.
   - stage: Stage1 
     jobs: # A job is like k8s Pod. All jobs run in the same place. # Deployment job is special, need to create environemnts in ADO panel first.
-      - job: Job_1_1 
-        displayName: 'Run Job_1_1'
-        steps: # A step is like k8s Container. All steps run in a same Pod.
-          - script: echo Hello Madoka!
-            displayName: 'Maodka step'
-      - job: Job_1_2
-        displayName: 'Run Job_1_2'
-        steps:
-          - script: echo Hello Sayaka!
-            displayName: 'Sayaka step'
+    - job: Job_1_1 
+      displayName: 'Run Job_1_1'
+      steps: # A step is like k8s Container. All steps run in a same Pod.
+      - script: echo Hello Madoka!
+        displayName: 'Maodka step'
+    - job: Job_1_2
+      displayName: 'Run Job_1_2'
+      steps:
+      - script: echo Hello Sayaka!
+        displayName: 'Sayaka step'
             
   - stage: Stage2
     dependsOn: [] # Run in parallel, if there are more agents available
