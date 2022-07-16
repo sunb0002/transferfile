@@ -1,0 +1,12 @@
+# extends:
+#   template: parent-template.yml
+
+parameters:
+- firstName: 'Kyubey'
+- lastName: 'キュゥべえ'
+- name: isGood
+  type: boolean
+  default: false
+
+steps:
+- script: echo firstName={{ parameters.firstName }}, isGood={{ parameters.isGood }}
