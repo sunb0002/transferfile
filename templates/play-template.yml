@@ -9,4 +9,6 @@ parameters:
   type: boolean
   default: false
 
-script: echo firstName={{ parameters.firstName }}, isGood={{ parameters.isGood }}
+steps:
+  - script: echo firstName={{ parameters.firstName }}, isGood={{ parameters.isGood }}
+  
