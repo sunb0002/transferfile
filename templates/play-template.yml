@@ -10,5 +10,4 @@ parameters:
   default: false
 
 steps:
-  - script: echo firstName={{ parameters.firstName }}, isGood={{ parameters.isGood }}
-  
+  - script: echo firstName=${{ parameters.firstName }}, isGood=${{ parameters.isGood }}
