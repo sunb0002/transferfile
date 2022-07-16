@@ -1,9 +1,9 @@
-
-trigger: # This is a CI trigger. Also got Schdeduled trigger (cron) and Pipeline dependency trigger (resources)
-  batch: true # Squash all commits made while build is in progress
-  branches:
-    include:
-      - master
+trigger: none # Disable CI triggers, but schedule/pipeline trigger still works.
+# trigger: # This is a CI trigger. Also got Schdeduled trigger (cron) and Pipeline dependency trigger (resources)
+#   batch: true # Squash all commits made while build is in progress
+#   branches:
+#     include:
+#       - master
 
 pool:
   # name: 'Self Hosted' # need to install agent on my own laptop/server
