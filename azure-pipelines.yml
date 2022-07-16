@@ -16,10 +16,10 @@ variables:
 
 stages: # A stage is like k8s Service, just a logic boundary. Its jobs runs one after another by default.
   - stage: Stage1 
-    jobs: # A job is like k8s Pod. Everything runs in the same place.
+    jobs: # A job is like k8s Pod. All jobs run in the same place.
       - job: Job_1_1 
         displayName: 'Run Job_1_1'
-        steps: # A step is like k8s Container, that runs in a same Pod.
+        steps: # A step is like k8s Container. All steps run in a same Pod.
           - script: echo Hello Madoka!
             displayName: 'Maodka step'
       - job: Job_1_2
