@@ -40,7 +40,7 @@ stages: # A stage is like k8s Service, just a logic boundary. Its jobs runs one 
             inputs:
               versionSpec: '18.x'
           - script: which node
-            displayName: 'Write the installed nodejs version to the command line'
+            displayName: 'Check installed nodejs version'
   
   - stage: ValidationStage
     dependsOn: [Stage1, Stage2]
