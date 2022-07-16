@@ -2,11 +2,11 @@
 #   template: parent-template.yml
 
 parameters:
-- firstName: 'Kyubey'
-- lastName: 'キュゥべえ'
+- name: firstName
+  type: string
+  default: 'Kyubey'
 - name: isGood
   type: boolean
   default: false
 
-steps:
-- script: echo firstName={{ parameters.firstName }}, isGood={{ parameters.isGood }}
+script: echo firstName={{ parameters.firstName }}, isGood={{ parameters.isGood }}
