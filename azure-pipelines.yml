@@ -10,9 +10,9 @@ pool:
   vmImage: 'ubuntu-latest'
 
 variables:
-- name: name
-  value: Kyouko
-  readonly: true
+  - name: name
+    value: Kyouko
+    readonly: true
 
 stages: # A stage is like k8s Service, just a logic boundary. Its jobs runs one after another by default.
   - stage: Stage1 
