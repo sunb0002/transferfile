@@ -29,9 +29,9 @@ stages: # A stage is like k8s Service, just a logic boundary. Its jobs runs one 
           # use $var get from bash env, %var% for cmd, etc.
           - script: echo Hello $(varName) from $(jobLocalVar)!
             displayName: "$(varName) from $(jobLocalVar) step"
-          # Manually store ${mySecret} in ADO pipeline vault and fetch with a mapped var
+          # Manually store ${mySecret} in ADO pipeline vault, but must get mapped in env
           - bash: |
-              echo "Mahou shoujo's secret is: $env:MAPPED_ENV_VAR"
+              echo "Mahou shoujo's secret is: $MAPPED_ENV_VAR"
             displayName: "Secret step"
             env:
               MAPPED_ENV_VAR: ${mySecret}
