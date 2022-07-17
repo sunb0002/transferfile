@@ -2,12 +2,12 @@
 #   template: parent-template.yml
 
 parameters:
-- name: firstName
-  type: string
-  default: 'Kyubey'
-- name: isGood
-  type: boolean
-  default: false
+  - name: firstName
+    type: string
+    default: "Kyubey"
+  - name: isGood
+    type: boolean
+    default: false
 
 steps:
   - script: echo firstName=${{ parameters.firstName }}, isGood=${{ parameters.isGood }}
