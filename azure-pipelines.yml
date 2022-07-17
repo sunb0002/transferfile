@@ -1,6 +1,6 @@
 # trigger: none # Disable CI triggers, but schedule/pipeline trigger still works.
 trigger: # This is a CI trigger. Also got Schdeduled trigger (cron) and Pipeline dependency trigger (resources)
-  batch: true # Squash all commits made while build is in progress
+  batch: "true" # Squash all commits made while build is in progress
   branches:
     include:
       - master
@@ -9,10 +9,10 @@ pool:
   # name: 'Self Hosted' # need to install agent on my own laptop/server
   vmImage: "ubuntu-latest"
 
-variables:
+variables: # Note: Variables are all strings for now. Array/list is not supported.
   - name: varName
     value: Kyouko
-    readonly: true
+    readonly: "true"
 
 stages: # A stage is like k8s Service, just a logic boundary. Its jobs runs one after another by default.
   - stage: Stage1
@@ -60,6 +60,7 @@ stages: # A stage is like k8s Service, just a logic boundary. Its jobs runs one 
           - task: NodeTool@0
             inputs:
               versionSpec: "18.x"
+            displayName: "Install NodeJS"
           - script: which node
             displayName: "Check installed nodejs version"
 
@@ -73,7 +74,7 @@ stages: # A stage is like k8s Service, just a logic boundary. Its jobs runs one 
             # target: pycontainer # Can specify
             # condition: succeededOrFailed() # Other options: always(runs even when canceled), canceled, failed, succeeded(default)
             # retryCountOnTaskFailure: 10
-            enabled: false # Disabled for now
+            enabled: "false" # Disabled for now
             timeoutInMinutes: 1
             inputs: # Inputs may not be available for other tasks.
               notifyUsers: ""

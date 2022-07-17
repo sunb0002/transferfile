@@ -12,4 +12,4 @@ parameters:
 steps:
   - script: echo firstName=${{ parameters.firstName }}, isGood=${{ parameters.isGood }}
   - ${{ if eq(parameters.isGood, false) }}:
-      - script: echo $(firstName) is really bad!
+      - script: echo ${{ parameters.firstName }} is really bad!
