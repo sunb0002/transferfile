@@ -31,7 +31,7 @@ stages: # A stage is like k8s Service, just a logic boundary. Its jobs runs one 
             displayName: "$(varName) from $(jobLocalVar) step"
           # Manually store $(mySecret) in ADO pipeline vault, but must get mapped in env
           - bash: |
-              echo Mahou shoujo's secret is: $MAPPED_ENV_VAR
+              echo Mahou shoujos secret is: $MAPPED_ENV_VAR
             displayName: "Secret step"
             env:
               MAPPED_ENV_VAR: $(mySecret)
