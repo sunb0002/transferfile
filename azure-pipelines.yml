@@ -1,27 +1,28 @@
-trigger: none # Disable CI triggers, but schedule/pipeline trigger still works.
-# trigger: # This is a CI trigger. Also got Schdeduled trigger (cron) and Pipeline dependency trigger (resources)
-#   batch: true # Squash all commits made while build is in progress
-#   branches:
-#     include:
-#       - master
+# trigger: none # Disable CI triggers, but schedule/pipeline trigger still works.
+trigger: # This is a CI trigger. Also got Schdeduled trigger (cron) and Pipeline dependency trigger (resources)
+  batch: true # Squash all commits made while build is in progress
+  branches:
+    include:
+      - master
 
 pool:
   # name: 'Self Hosted' # need to install agent on my own laptop/server
   vmImage: "ubuntu-latest"
 
 variables:
-  - name: name
+  - name: varName
     value: Kyouko
     readonly: true
 
 stages: # A stage is like k8s Service, just a logic boundary. Its jobs runs one after another by default.
   - stage: Stage1
+    # pool: 'Self Hosted' # Let all jobs run with same agent pool.
     jobs: # A job is like k8s Pod. All jobs run in the same place. # Deployment job is special, need to create environemnts in ADO panel first.
       - job: Job_simple
         displayName: "Run Job_simple"
         steps: # A step is like k8s Container. All steps run in a same Pod.
-          - script: echo Hello Madoka!
-            displayName: "Maodka step"
+          - script: echo Hello $(varName)!
+            displayName: "$(varName) step"
       - job: Job_template
         displayName: "Run Job_template"
         steps:
@@ -33,6 +34,7 @@ stages: # A stage is like k8s Service, just a logic boundary. Its jobs runs one 
 
   - stage: Stage2
     dependsOn: [] # Run in parallel, if there are more agents available
+    # condition: succeeded('Stage1')
     jobs:
       - job: Job_task
         displayName: "Run Job_task"
@@ -42,9 +44,6 @@ stages: # A stage is like k8s Service, just a logic boundary. Its jobs runs one 
               versionSpec: "18.x"
           - script: which node
             displayName: "Check installed nodejs version"
-          - task: Delay@1
-            inputs:
-              delayForMinutes: "0.05"
 
   - stage: ValidationStage
     dependsOn: [Stage1, Stage2]
