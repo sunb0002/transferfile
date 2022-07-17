@@ -20,9 +20,16 @@ stages: # A stage is like k8s Service, just a logic boundary. Its jobs runs one 
     jobs: # A job is like k8s Pod. All jobs run in the same place. # Deployment job is special, need to create environemnts in ADO panel first.
       - job: Job_simple
         displayName: "Run Job_simple"
+        variables:
+          jobLocalVar: Mami
         steps: # A step is like k8s Container. All steps run in a same Pod.
-          - script: echo Hello $(varName)!
-            displayName: "$(varName) step"
+          # For variables, choose marco expression $(var) to provide input for task
+          # choose runtime expression $[variables.var] for conditions/expressions
+          # choose template expression ${{ variables.var }} when used in a template
+          # use $var get from bash env, %var% for cmd, etc.
+          # Can manually store ${mySecret} in ADO pipeline vault.
+          - script: echo Hello $(varName) from $(jobLocalVar), my secret is $(mySecret)
+            displayName: "$(varName) from $(jobLocalVar) step"
       - job: Job_template
         displayName: "Run Job_template"
         steps:
