@@ -27,9 +27,13 @@ stages: # A stage is like k8s Service, just a logic boundary. Its jobs runs one 
           # choose runtime expression $[variables.var] for conditions/expressions
           # choose template expression ${{ variables.var }} when used in a template
           # use $var get from bash env, %var% for cmd, etc.
-          # Can manually store ${mySecret} in ADO pipeline vault.
-          - script: echo Hello $(varName) from $(jobLocalVar), my secret is $(mySecret)
+          - script: echo Hello $(varName) from $(jobLocalVar)!
             displayName: "$(varName) from $(jobLocalVar) step"
+          # Manually store ${mySecret} in ADO pipeline vault and fetch with a mapped var
+          - script: "echo Mahou shoujo's secret is: $(MAPPED_ENV_VAR)"
+            displayName: "Secret is $(MAPPED_ENV_VAR)"
+            env:
+              MAPPED_ENV_VAR: ${mySecret}
       - job: Job_template
         displayName: "Run Job_template"
         steps:
