@@ -37,10 +37,10 @@ stages: # A stage is like k8s Service, just a logic boundary. Its jobs runs one 
             env:
               MAPPED_ENV_VAR: $(mySecret)
           # Dynamically set variable
-          - bash: |
-              echo "##vso[task.setvariable variable=mySecretVal;issecret=true]secretvalue"
-          - bash: |
-              echo $(mySecretVal)
+          # - bash: |
+          #     echo "##vso[task.setvariable variable=mySecretVal;issecret=true]secretvalue"
+          # - bash: |
+          #     echo $(mySecretVal)
       - job: Job_template
         displayName: "Run Job_template"
         steps:
