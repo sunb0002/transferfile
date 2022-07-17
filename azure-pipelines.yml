@@ -25,9 +25,11 @@ stages: # A stage is like k8s Service, just a logic boundary. Its jobs runs one 
     - job: Job_template
       displayName: 'Run Job_template'
       steps:
-        - template: templates/play-template.yml
-          parameters:
-            firstName: 'Bad Kyubey'
+        # According to docs, template is only for steps, stages, variables, jobs.
+        # This template here replaces the entire "steps" parent.
+      - template: templates/play-template.yml 
+        parameters:
+          firstName: 'Bad Kyubey'
 
             
   - stage: Stage2
